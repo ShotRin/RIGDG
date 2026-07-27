@@ -5,7 +5,7 @@
 [![Paper](https://img.shields.io/badge/Paper-DBpia-blue)](https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12318489)
 [![Python](https://img.shields.io/badge/Python-3.10-blue)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.4-red)](https://pytorch.org/)
-[![License](https://img.shields.io/badge/License-MIT-green)](...)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 Official PyTorch implementation of the conference paper presented at the **2026 Korea Institute of Information Technology (KIIT) Conference**.
 
@@ -263,7 +263,7 @@ DBpia:
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
