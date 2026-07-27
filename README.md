@@ -10,57 +10,123 @@
 
 
 
-## Paper
+# RIGDG
 
-This repository contains the official implementation of the paper
+> **Reference Image Guided Defect Generation Model for Robust Vision Inspection**
 
-**RIGDG: Reference Image Guided Defect Generation Model for Robust Vision Inspection**
+Official PyTorch implementation of the conference paper presented at the **2026 Korea Institute of Information Technology (KIIT) Conference**.
 
-presented at the **2026 KIIT Conference**.
-
-Paper:
-https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12318489
-
-**Reference Image Guided Defect Generation Model for Robust Vision Inspection**
-
-Official implementation of **RIGDG**, a reference image-guided defect generation framework for industrial visual inspection.
-
-The proposed method synthesizes realistic defect images from paired reference and inspection images without requiring pixel-level defect annotations, improving the robustness of vision inspection systems through realistic defect augmentation.
+<p align="center">
+  <img width="2587" height="628" alt="image" src="https://github.com/user-attachments/assets/7ded701f-9554-4f00-9059-c00cf7a0a020" />
+</p>
 
 ---
 
 ## Overview
 
-Industrial defect inspection often suffers from insufficient defective samples, making it difficult to train robust deep learning models.
+Industrial visual inspection systems require large numbers of defective samples for training deep learning models. However, collecting sufficient defect images is expensive and time-consuming because defects occur infrequently in real manufacturing environments.
 
-RIGDG addresses this limitation by generating realistic defect images using paired **Reference (Master)** and **Inspection (Current)** images. Instead of relying on manually annotated defect masks, the proposed framework automatically extracts defect-aware features from image pairs and synthesizes realistic defects while preserving normal PCB structures.
+RIGDG (Reference Image Guided Defect Generation) is a GAN-based defect image generation framework that synthesizes realistic defect images from paired **Reference (Master)** and **Inspection (Current)** images.
+
+Instead of relying on pixel-level defect annotations, RIGDG extracts feature differences between paired images, emphasizes defect-related information using CBAM attention, and generates realistic defect images conditioned on reference features.
 
 ---
 
 ## Method
 
-The overall framework consists of four stages.
+The proposed framework consists of the following stages.
 
-1. Feature Encoding
-2. Difference Feature Extraction (ΔF)
-3. Defect-aware Localization
-4. Reference-guided Defect Generation
+### 1. Feature Extraction
 
-<p align="center">
-<img width="2587" height="628" alt="image" src="https://github.com/user-attachments/assets/ec8b283c-3ef9-47c0-9890-1eda1faeca01" />
-</p>
+Both Reference and Inspection images are encoded using a shared Featuremap Reconstructor.
 
-The generated images can be utilized to augment industrial inspection datasets and improve downstream defect detection performance.
+```
+Reference Image
+Inspection Image
+        │
+        ▼
+Featuremap Reconstructor
+        │
+        ├── z_ref
+        └── z_ins
+```
 
+---
+
+### 2. Difference Feature Extraction
+
+Feature differences are computed as
+
+```
+ΔF = z_ins − z_ref
+```
+
+The difference feature contains defect-related information while suppressing common background characteristics.
+
+---
+
+### 3. CBAM Attention
+
+CBAM is applied to emphasize informative defect regions.
+
+```
+        ΔF
+        ↓
+       CBAM
+        ↓
+Attention Feature
+```
+
+---
+
+### 4. Conditional Feature Construction
+
+The attended defect feature is combined with the reference feature.
+
+```
+z_cond = z_ref + CBAM(ΔF)
+```
+
+This conditional feature preserves normal PCB structure while injecting defect information.
+
+---
+
+### 5. Defect Image Generation
+
+The conditional feature map is decoded by the generator to synthesize realistic defect images.
+
+```
+Reference + Inspection
+        ↓
+Feature Extraction
+        ↓
+Difference Feature (ΔF)
+        ↓
+CBAM
+        ↓
+Conditional Feature
+        ↓
+Generator
+        ↓
+Generated Defect Image
+```
+| Stage | Description |
+|-------|-------------|
+| Feature Extraction | Extract reference and inspection features using the shared encoder. |
+| Difference Feature | Compute feature difference between paired images. |
+| CBAM | Enhance defect-related responses. |
+| Conditional Feature | Fuse the refined difference feature with the reference feature. |
+| Generator | Decode the conditional feature into a defect image. |
 ---
 
 ## Key Features
 
-- Reference image-guided defect generation
-- No pixel-level defect annotations required
-- Difference feature-based defect localization
-- Realistic synthetic defect generation
-- Industrial PCB inspection framework
+- Reference-guided defect image generation
+- No pixel-level defect annotation required
+- Difference feature-based conditioning
+- CBAM attention for defect enhancement
+- GAN-based image synthesis
+- PCB inspection dataset support
 
 ---
 
@@ -69,11 +135,15 @@ The generated images can be utilized to augment industrial inspection datasets a
 ```
 RIGDG
 │
-├── datasets/          Dataset loader
-├── models/            Network architectures
-├── utils/             Utility functions
-├── train.py           Training
-├── test.py            Inference
+├── Encoders/
+│   └── encoders.py
+│
+├── Methods/
+│   └── ProposedMethod0421.py
+│
+├── train.py
+├── generate_defects.py
+├── utils.py
 ├── requirements.txt
 └── README.md
 ```
@@ -82,28 +152,22 @@ RIGDG
 
 ## Dataset
 
-The dataset consists of paired PCB images.
+The dataset consists of paired inspection images.
 
 ```
 dataset/
 
-    train/
+False Alarm/
+    xxx_Current.jpg
+    xxx_Master.jpg
 
-        Master/
+Pollution/
+    xxx_Current.jpg
+    xxx_Master.jpg
 
-        Current/
-
-    test/
-
-        Master/
-
-        Current/
 ```
 
-- **Master** : Reference PCB image
-- **Current** : Inspection PCB image
-
-Each inspection image must have a corresponding reference image.
+Each **Current** image must have a corresponding **Master** image.
 
 ---
 
@@ -121,54 +185,65 @@ pip install -r requirements.txt
 
 ## Training
 
+Train the proposed GAN model.
+
 ```bash
 python train.py
 ```
+
+Default settings
+
+| Parameter | Value |
+|-----------|------:|
+| Epochs | 100 |
+| Batch Size | 40 |
+| Learning Rate | 5e-5 |
 
 ---
 
 ## Inference
 
+Generate defect images using trained weights.
+
 ```bash
-python eval.py
+python generate_defects.py
+```
+
+Generated images will be saved in
+
+```
+results/
 ```
 
 ---
 
 ## Results
 
-Example of generated defect images per model.
-<img width="1258" height="611" alt="image" src="https://github.com/user-attachments/assets/dbdbdbaf-8808-4c9c-bf06-0684e6781213" />
+Example generated images.
 
-
-<img width="1333" height="553" alt="image" src="https://github.com/user-attachments/assets/dcc2bb7a-6887-463a-bc9b-456338c67128" />
-
-<img width="1328" height="369" alt="image" src="https://github.com/user-attachments/assets/29b90784-db93-4d57-94dd-d42c131ac211" />
-
+| Reference | Generated |
+|-----------|------------|
+| <img width="300" height="300" alt="gen_defect_166_origin" src="https://github.com/user-attachments/assets/6e09cb36-6bb8-4eed-bb25-b17572e62464" /> | <img width="300" height="300" alt="gen_defect_166" src="https://github.com/user-attachments/assets/632af738-32bb-4f05-98ef-f9008717c12b" />  |
 
 ---
 
 ## Publication
-
-This repository accompanies the conference paper:
 
 **Reference Image Guided Defect Generation Model for Robust Vision Inspection**
 
 Proceedings of the Korea Institute of Information Technology (KIIT) Conference, 2026.
 
 DBpia:
-https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12318489
+https://www.dbpia.co.kr/
 
 ---
 
 ## Citation
 
-If you find this work useful, please cite:
-
 ```bibtex
 @inproceedings{lee2026rigdg,
   title={Reference Image Guided Defect Generation Model for Robust Vision Inspection},
-  author={...},
+  author={Lee, Seunghun and ...},
   booktitle={Proceedings of the Korea Institute of Information Technology Conference},
   year={2026}
 }
@@ -178,10 +253,12 @@ If you find this work useful, please cite:
 
 ## License
 
-This project is intended for academic and research purposes.
+This project is released for academic research purposes.
 
 ---
 
 ## Contact
+
+If you have any questions, please open an Issue or contact the authors.
 
 If you have any questions, please open an Issue or contact the authors.
