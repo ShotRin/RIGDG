@@ -213,10 +213,28 @@ results/
 
 Example generated images.
 
-| Reference Image | Generated Defect Image |
+| Reference | Generated |
 |-----------|------------|
 | <img width="100" alt="gen_defect_166_origin" src="https://github.com/user-attachments/assets/6e09cb36-6bb8-4eed-bb25-b17572e62464" /> | <img width="100" alt="gen_defect_166" src="https://github.com/user-attachments/assets/632af738-32bb-4f05-98ef-f9008717c12b" />  |
 
+### Comparison with Existing Methods
+
+Qualitative comparison of generated defect images with existing image generation methods.
+
+| BAGAN | cGAN | SMOTified-GAN | DG2GAN | **RIGDG (Ours)** |
+|-----------|----------|---------|-----------|------------------|
+| <img width="100" alt="image" src="https://github.com/user-attachments/assets/979037ab-16f5-4e1f-bc67-4bb144a3c634" /> | <img width="100" alt="image" src="https://github.com/user-attachments/assets/9c2c385e-f37b-4418-878d-fbc3e528c432" /> | <img width="100" alt="image" src="https://github.com/user-attachments/assets/f34dd4f5-f173-47a9-aa4a-a5a21bfe7e11" /> | <img width="100" alt="image" src="https://github.com/user-attachments/assets/9ec55f41-5e3e-4d34-aee1-065b5b0d7359" /> | <img width="100" alt="image" src="https://github.com/user-attachments/assets/3108c9ec-117d-4e3f-b331-d92dd27b112a" /> |
+| <img width="100" alt="image" src="https://github.com/user-attachments/assets/4a5dcfe4-1959-4cf1-ae08-7505ca3086fc" /> | <img width="100" alt="image" src="https://github.com/user-attachments/assets/6fe20b78-ce3b-4b58-ab74-063000808456" /> | <img width="100" alt="image" src="https://github.com/user-attachments/assets/9054a82c-7ffa-4d3a-90bc-3cc93d9b54f4" /> | <img width="100" alt="image" src="https://github.com/user-attachments/assets/7952b0a1-39e4-4dbf-b2d5-4b5b5a5e61a4" /> | <img width="100" alt="image" src="https://github.com/user-attachments/assets/40d36d79-49b3-4ee1-b85c-94a7dffc9fc9" /> |
+
+### Quantitative Evaluation
+| Method | FID ↓ | Classification Accuracy (F1-Score) ↑ |
+|--------|------:|--------------------------:|
+| Baseline | - | 0.82 |
+| BAGAN | 372.60 | 0.81 |
+| cGAN | 376.76 | 0.81 |
+| SMOTified-GAN | 267.89 | 0.81 |
+| DG2GAN | 273.36 | 0.81 |
+| **RIGDG (Ours)** | **165.66** | **0.84** |
 ---
 
 ## Publication
@@ -245,7 +263,7 @@ DBpia:
 
 ## License
 
-This project is released for academic research purposes.
+This project is licensed under the MIT License.
 
 ---
 
