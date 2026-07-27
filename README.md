@@ -21,8 +21,6 @@ presented at the **2026 KIIT Conference**.
 Paper:
 https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12318489
 
-# RIGDG
-
 **Reference Image Guided Defect Generation Model for Robust Vision Inspection**
 
 Official implementation of **RIGDG**, a reference image-guided defect generation framework for industrial visual inspection.
