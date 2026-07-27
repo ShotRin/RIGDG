@@ -2,17 +2,10 @@
 
 > Reference Image Guided Defect Generation Model for Robust Vision Inspection
 
-[![Paper](https://img.shields.io/badge/Paper-DBpia-blue)](...)
-[![Python](https://img.shields.io/badge/Python-3.10-blue)](...)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.4-red)](...)
+[![Paper](https://img.shields.io/badge/Paper-DBpia-blue)](https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12318489)
+[![Python](https://img.shields.io/badge/Python-3.10-blue)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.4-red)](https://pytorch.org/)
 [![License](https://img.shields.io/badge/License-MIT-green)](...)
-
-
-
-
-# RIGDG
-
-> **Reference Image Guided Defect Generation Model for Robust Vision Inspection**
 
 Official PyTorch implementation of the conference paper presented at the **2026 Korea Institute of Information Technology (KIIT) Conference**.
 
@@ -26,7 +19,7 @@ Official PyTorch implementation of the conference paper presented at the **2026 
 
 Industrial visual inspection systems require large numbers of defective samples for training deep learning models. However, collecting sufficient defect images is expensive and time-consuming because defects occur infrequently in real manufacturing environments.
 
-RIGDG (Reference Image Guided Defect Generation) is a GAN-based defect image generation framework that synthesizes realistic defect images from paired **Reference (Master)** and **Inspection (Current)** images.
+RIGDG (Reference Image Guided Defect Generation) is a GAN-based defect image generation framework that synthesizes realistic defect images from paired **Reference** and **Inspection** images.
 
 Instead of relying on pixel-level defect annotations, RIGDG extracts feature differences between paired images, emphasizes defect-related information using CBAM attention, and generates realistic defect images conditioned on reference features.
 
@@ -43,8 +36,7 @@ Both Reference and Inspection images are encoded using a shared Featuremap Recon
 ```
 Reference Image
 Inspection Image
-        │
-        ▼
+        ↓
 Featuremap Reconstructor
         │
         ├── z_ref
@@ -70,9 +62,9 @@ The difference feature contains defect-related information while suppressing com
 CBAM is applied to emphasize informative defect regions.
 
 ```
-        ΔF
+ΔF
         ↓
-       CBAM
+CBAM
         ↓
 Attention Feature
 ```
@@ -158,16 +150,16 @@ The dataset consists of paired inspection images.
 dataset/
 
 False Alarm/
-    xxx_Current.jpg
-    xxx_Master.jpg
+    sample001_Inspection.jpg
+    sample001_Reference.jpg
 
 Pollution/
-    xxx_Current.jpg
-    xxx_Master.jpg
+    sample002_Inspection.jpg
+    sample002_Reference.jpg
 
 ```
 
-Each **Current** image must have a corresponding **Master** image.
+Each **Inspection** image must have a corresponding **Reference** image.
 
 ---
 
@@ -221,7 +213,7 @@ results/
 
 Example generated images.
 
-| Reference | Generated |
+| Reference Image | Generated Defect Image |
 |-----------|------------|
 | <img width="300" height="300" alt="gen_defect_166_origin" src="https://github.com/user-attachments/assets/6e09cb36-6bb8-4eed-bb25-b17572e62464" /> | <img width="300" height="300" alt="gen_defect_166" src="https://github.com/user-attachments/assets/632af738-32bb-4f05-98ef-f9008717c12b" />  |
 
@@ -234,7 +226,7 @@ Example generated images.
 Proceedings of the Korea Institute of Information Technology (KIIT) Conference, 2026.
 
 DBpia:
-https://www.dbpia.co.kr/
+[Paper](https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12318489)
 
 ---
 
@@ -259,4 +251,8 @@ This project is released for academic research purposes.
 
 ## Contact
 
-If you have any questions, please open an Issue or contact the authors.
+For questions, please contact:
+
+Seunghun Lee
+
+Email: oscm9@tukorea.ac.kr
