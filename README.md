@@ -215,7 +215,7 @@ Example generated images.
 
 | Reference Image | Generated Defect Image |
 |-----------|------------|
-| <img width="300" height="300" alt="gen_defect_166_origin" src="https://github.com/user-attachments/assets/6e09cb36-6bb8-4eed-bb25-b17572e62464" /> | <img width="300" height="300" alt="gen_defect_166" src="https://github.com/user-attachments/assets/632af738-32bb-4f05-98ef-f9008717c12b" />  |
+| <img width="100" alt="gen_defect_166_origin" src="https://github.com/user-attachments/assets/6e09cb36-6bb8-4eed-bb25-b17572e62464" /> | <img width="100" alt="gen_defect_166" src="https://github.com/user-attachments/assets/632af738-32bb-4f05-98ef-f9008717c12b" />  |
 
 ---
 
