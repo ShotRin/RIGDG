@@ -7,7 +7,7 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.4-red)](...)
 [![License](https://img.shields.io/badge/License-MIT-green)](...)
 
-<img width="2587" height="628" alt="image" src="https://github.com/user-attachments/assets/ec8b283c-3ef9-47c0-9890-1eda1faeca01" />
+
 
 
 ## Paper
@@ -49,7 +49,7 @@ The overall framework consists of four stages.
 4. Reference-guided Defect Generation
 
 <p align="center">
-<img src="images/framework.png" width="900">
+<img width="2587" height="628" alt="image" src="https://github.com/user-attachments/assets/ec8b283c-3ef9-47c0-9890-1eda1faeca01" />
 </p>
 
 The generated images can be utilized to augment industrial inspection datasets and improve downstream defect detection performance.
@@ -112,9 +112,9 @@ Each inspection image must have a corresponding reference image.
 ## Installation
 
 ```bash
-git clone https://github.com/ShotRin/RIGDG-Reference-Image-Guided-Defect-Generation-Model-for-Robust-Vision-Inspection.git
+git clone https://github.com/ShotRin/RIGDG.git
 
-cd RIGDG-Reference-Image-Guided-Defect-Generation-Model-for-Robust-Vision-Inspection
+cd RIGDG
 
 pip install -r requirements.txt
 ```
