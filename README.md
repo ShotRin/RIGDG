@@ -260,5 +260,3 @@ This project is released for academic research purposes.
 ## Contact
 
 If you have any questions, please open an Issue or contact the authors.
-
-If you have any questions, please open an Issue or contact the authors.
